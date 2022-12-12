@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+  labels:
+    app: api
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 50%
+  selector:
+    matchLabels:
+      toto: tata
+  template:
+    metadata:
+      labels:
+        toto: tata
+    spec:
+      containers:
+        - name: api
+          image: registry.k8s.io/echoserver:1.4
+          ports:
+            - containerPort: 8080
